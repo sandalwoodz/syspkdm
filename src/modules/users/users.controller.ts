@@ -30,7 +30,7 @@ export class UserController {
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.ADMIN }) //管理员权限
   async index() {
-    return await this.userService.find(name)
+    return await this.userService.index()
   }
 
   @Post()
@@ -40,6 +40,7 @@ export class UserController {
   }
 
   @Get(':name')
+  @ApiOperation({ summary: '账号查询' })
   @UseInterceptors(ClassSerializerInterceptor)
   async show(@Param('name') name: string) {
     return await this.userService.show(name)

@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { teachers } from './teachers.entity';
 import { Repository } from 'typeorm';
 import { teachersDto } from './teachers.dto';
-import { RemoveEssayDto } from './teachers.arrydto';
+
 @Injectable()
 export class TeachersService {
   constructor(
@@ -18,12 +18,6 @@ export class TeachersService {
     return entity;
   }
 
-  // async arrystore(data: RemoveEssayDto) {
-  //   const entity = await this.teachersRepository.create(data)
-  //   await this.teachersRepository.save(entity);
-  //   return entity;
-  // }
-
   //查看所有数据
   async index() {
     const entities = await this.teachersRepository.find();
@@ -32,9 +26,9 @@ export class TeachersService {
 
   //条件查询
   async show(name: string) {
-    const entity = await this.teachersRepository.findOne({name:name}, {
-      relations: ['rcourses'],
-    });
+    const entity = await this.teachersRepository.findOne({name:name}, 
+      //{ relations: ['rcourses'],}
+    );
     return entity;
   }
 
@@ -49,14 +43,20 @@ export class TeachersService {
     const result = await this.teachersRepository.delete(id);
   }
 
-  async find(jobnumber: string) {
-    const qb = this.teachersRepository
-      .createQueryBuilder('teachers')
-      .where('teachers.jobnumber = :jobnumber', { jobnumber })
-      .leftJoinAndSelect('teachers.rcourses', 'rcourses')
-      // .leftJoinAndSelect('teachers.avatar', 'avatar');
+  // async find(jobnumber: string) {
+  //   const qb = this.teachersRepository
+  //     .createQueryBuilder('teachers')
+  //     .where('teachers.jobnumber = :jobnumber', { jobnumber })
+  //     // .leftJoinAndSelect('teachers.rcourses', 'rcourses')
+  //     // .leftJoinAndSelect('teachers.avatar', 'avatar');
 
-    return await qb.getMany();
+  //   return await qb.getMany();
+  // }
+  async find(jobnumber: string) {
+    const entity = await this.teachersRepository.findOne({jobnumber:jobnumber}, 
+      { relations: ['rcourses'],}
+    );
+    return entity;
   }
 
   async getrcourseId(id) {

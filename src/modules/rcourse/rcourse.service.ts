@@ -59,6 +59,6 @@ export class RcourseService {
       .createQueryBuilder('rcourse')
       .where('rcourse.teachername = :teachername', { teachername });
 
-    return await qb.getManyAndCount();
+    return await qb.getMany();
   }
 }

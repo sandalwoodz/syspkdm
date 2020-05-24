@@ -14,6 +14,6 @@ export class rcourseDto {
    times: number;
   @ApiProperty()
    teachersId: number;
-  teachers: import("f:/syspkdm/src/modules/teachers/teachers.entity").teachers;
+  // teachers: import("f:/syspkdm/src/modules/teachers/teachers.entity").teachers;
 
 }

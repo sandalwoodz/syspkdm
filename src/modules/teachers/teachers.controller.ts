@@ -34,15 +34,6 @@ export class TeachersController {
     return await this.teachersService.store(data);
   }
 
-  // @Post('s')
-  // @ApiOperation({ summary: '添加教师信息' })
-  // @UseGuards(AuthGuard('jwt'), AccessGuard)
-  // @Permissions({ role: UserRole.ADMIN }) //管理员权限
-  // @UsePipes(ValidationPipe)
-  // async arrystore(@Body() data: RemoveEssayDto) {
-  //   return await this.teachersService.arrystore(data)
-  // }
-
   @Get()
   @ApiOperation({ summary: '查看所有教师信息' })
   @UseGuards(AuthGuard('jwt'), AccessGuard)

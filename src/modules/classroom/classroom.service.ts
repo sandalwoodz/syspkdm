@@ -46,6 +46,6 @@ export class ClassroomService {
       .createQueryBuilder('classroom')
       .where('classroom.name = :name', { name });
 
-    return await qb.getMany();
+    return await qb.getOne();
   }
 }

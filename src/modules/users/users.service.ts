@@ -96,12 +96,4 @@ export class UserService {
     return await this.usersRepository.save(entity);
   }
 
-  async find(name: string) {
-    const qb = this.usersRepository
-      .createQueryBuilder('users')
-      .where('users.name = :name', { name })
-      .leftJoinAndSelect('users.avatar', 'avatar');
-
-    return await qb.getMany();
-}
 }
