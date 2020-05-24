@@ -35,7 +35,7 @@ export class UserController {
 
   @Post()
   @ApiOperation({ summary: '添加用户' })
-  async store(@Body() data: UserDto) {
+  async store(@Body() data) {
     return await this.userService.store(data);
   }
 

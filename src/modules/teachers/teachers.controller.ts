@@ -30,7 +30,7 @@ export class TeachersController {
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.ADMIN }) //管理员权限
   @UsePipes(ValidationPipe)
-  async store(@Body() data: teachersDto) {
+  async store(@Body() data) {
     return await this.teachersService.store(data);
   }
 

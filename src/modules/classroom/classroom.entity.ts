@@ -2,10 +2,6 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  CreateDateColumn,
-  BeforeInsert,
-  Exclusion,
-  BeforeUpdate,
 } from 'typeorm';
 
 @Entity()

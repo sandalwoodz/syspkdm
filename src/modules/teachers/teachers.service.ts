@@ -60,6 +60,6 @@ export class TeachersService {
   }
 
   async getrcourseId(id) {
-    return await this.teachersRepository.findOne(id, {relations: ['rcourse']});
+    return await this.teachersRepository.findOne(id, {relations: ['rcourses']});
   }
 }

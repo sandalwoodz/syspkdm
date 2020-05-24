@@ -20,18 +20,19 @@ export class RcourseService {
     return entity;
   }
 
-    // //存储数据
-    // async add(data: rcourseDto) {
-    //   const entity = new data();
-    //   entity.classname = data.classname;
-    //   entity.coursename = data.coursename;
-    //   entity.classnumber = data.classnumber;
-    //   entity.teachername = data.teachername;
-    //   entity.times = data.times;
-    //   entity.teachersId = await this.teacherSversice.getrcourseId(data.teachersId)
-    //   await this.rcourseRepository.save(entity);
-    //   return entity;
-    // }
+    //存储数据
+    async add(data: rcourseDto) {
+      const entity = new rcourseDto();
+      entity.classname = data.classname;
+      entity.coursename = data.coursename;
+      entity.classnumber = data.classnumber;
+      entity.teachername = data.teachername;
+      entity.times = data.times;
+      entity.teachersId = data.teachersId
+      await this.rcourseRepository.save(entity);
+      return entity;
+      //console.log(entity)
+    }
 
   //查看所有数据
   async index() {

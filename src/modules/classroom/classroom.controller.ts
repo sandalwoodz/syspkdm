@@ -26,7 +26,7 @@ export class ClassroomController {
   @ApiOperation({ summary: '添加实验室' })
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.ADMIN }) //管理员权限
-  async store(@Body() data: classroomDto) {
+  async store(@Body() data) {
     return await this.classroomService.store(data);
   }
 

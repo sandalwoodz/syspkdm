@@ -3,16 +3,17 @@ import { ApiProperty } from '@nestjs/swagger';
 // eslint-disable-next-line @typescript-eslint/class-name-casing
 export class rcourseDto {
   @ApiProperty()
-  readonly coursename: string;
+   coursename: string;
   @ApiProperty()
-  readonly teachername: string;
+   teachername: string;
   @ApiProperty()
-  readonly classname: string;
+   classname: string;
   @ApiProperty()
-  readonly classnumber: number;
+   classnumber: number;
   @ApiProperty()
-  readonly times: number;
+   times: number;
   @ApiProperty()
-  readonly teachersId: number;
+   teachersId: number;
+  teachers: import("f:/syspkdm/src/modules/teachers/teachers.entity").teachers;
 
 }

@@ -29,7 +29,7 @@ export class teachers {
     type => rcourse,
     rcourse => rcourse.teachers,
   )
-  rcourses: rcourse[];
+  rcourses:[];
 
   // @OneToMany(
   //   // eslint-disable-next-line @typescript-eslint/no-unused-vars

@@ -1,5 +1,4 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, RelationId } from 'typeorm'
-import { teachers } from '../teachers/teachers.entity'
 import { users } from '../users/users.entity'
 import { User } from 'src/core/decorators/users.decorators'
 
@@ -15,10 +14,10 @@ export class Avatar{
     @Column()
     mimetype:string
 
-    @ManyToOne(type => users,users=> users.avatar//,{nullable : false}
+    @ManyToOne(type => users,users=> users.avatar,{nullable : false}
         )
     user:users;
 
-    // @RelationId((Avatar:Avatar) => Avatar.user)
-    // userId:number
+    @RelationId((Avatar:Avatar) => Avatar.user)
+    userId:number
 }

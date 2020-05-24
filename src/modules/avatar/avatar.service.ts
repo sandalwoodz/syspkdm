@@ -13,7 +13,7 @@ export class AvatarService {
     ){}
 
     async store(data:FileDto,user:users){
-        return await this.avatarRepository.save({...data,user})
+        return await this.avatarRepository.save({...data,user});
     }
 
     async show(id: number) {

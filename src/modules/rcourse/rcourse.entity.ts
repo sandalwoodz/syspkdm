@@ -31,7 +31,7 @@ export class rcourse {
   @ManyToOne(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     types => teachers,
-    teachers => teachers.rcourses,
+    teachers => teachers.rcourses,{onDelete: 'NO ACTION'}
   )
   teachers: teachers;
 
