@@ -10,6 +10,7 @@ export class AccessGuard implements CanActivate {
   async validatePermissions(permissions: PermissionInterface[], user: users) {
     const results = permissions.map(async permission => {
       const { role } = permission;
+      // eslint-disable-next-line @typescript-eslint/no-inferrable-types
       let hasRole: boolean = true;
 
       if (role) {

@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { rcourse } from './rcourse.entity';
 import { Repository } from 'typeorm';
@@ -15,29 +15,23 @@ export class RcourseService {
 
   //存储数据
   async store(data: rcourseDto) {
+    const pa: any[] = await this.rcourseRepository.find();
+
+    for(let i = 0;i<pa.length;i++){
+    if (data.coursename==pa[i].coursename) {
+          if (data.teachername===pa[i].teachername) {
+      throw new BadRequestException('安排教学任务重复');
+    }}}
     const entity = await this.rcourseRepository.create(data);
     await this.rcourseRepository.save(entity);
     return entity;
   }
 
-    //存储数据
-    async add(data: rcourseDto) {
-      const entity = new rcourseDto();
-      entity.classname = data.classname;
-      entity.coursename = data.coursename;
-      entity.classnumber = data.classnumber;
-      entity.teachername = data.teachername;
-      entity.times = data.times;
-      entity.teachersId = data.teachersId
-      await this.rcourseRepository.save(entity);
-      return entity;
-      //console.log(entity)
-    }
 
   //查看所有数据
   async index() {
     const entities = await this.rcourseRepository.find({
-      relations: ['teachers'],
+      relations: ['teacherId'],
     });
     return entities;
   }

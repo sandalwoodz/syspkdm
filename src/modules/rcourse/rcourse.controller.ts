@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { RcourseService } from './rcourse.service';
 import { rcourseDto } from './rcourse.dto';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiHeader } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { AccessGuard } from 'src/core/guards/access.guard';
 import { Permissions } from 'src/core/decorators/permissions.decorator';
@@ -18,6 +18,11 @@ import { UserRole } from 'src/core/enums/user-role.enum';
 
 @Controller('rcourse')
 @ApiTags('任课课表')
+@ApiHeader({
+  name:'authoriation',
+  required: true,
+  description: '本次请求请带上token',
+})
 export class RcourseController {
   constructor(private readonly rcourseService: RcourseService) {}
 
@@ -49,8 +54,7 @@ export class RcourseController {
 
   @Get(':teachername')
   @ApiOperation({ summary: '教师任课课程' })
-  @UseGuards(AuthGuard('jwt'), AccessGuard)
-  @Permissions({ role: UserRole.TEACHER }) //教师权限
+  @UseGuards(AuthGuard('jwt'))
   async find(@Param('teachername') teachername: string) {
     return await this.rcourseService.find(teachername);
   }

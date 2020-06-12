@@ -9,6 +9,7 @@ import { Repository } from 'typeorm';
 import { UserDto, UpdatePasswordDto } from './users.dto';
 
 
+
 @Injectable()
 export class UserService {
   constructor(
@@ -35,7 +36,7 @@ export class UserService {
 
   //条件查询
   async show(name: string) {
-    const entity = await this.usersRepository.findOne({name:name});
+    const entity = await this.usersRepository.findOne({name:name},{relations:[]});
 
     if (!entity) {
       throw new NotFoundException('没找到用户！');

@@ -12,6 +12,8 @@ import { RoleModule } from './modules/role/role.module';
 import { LoggerModule } from './modules/logger/logger.module';
 import { FileuploadModule } from './modules/fileupload/fileupload.module';
 import { AvatarModule } from './modules/avatar/avatar.module';
+import { CourseModule } from './modules/course/course.module';
+import { ClassModule } from './modules/class/class.module';
 
 
 @Module({
@@ -21,9 +23,9 @@ import { AvatarModule } from './modules/avatar/avatar.module';
       type: 'mysql',
       host: '49.233.211.182',
       port: 3306,
-      username: 'syspk',
+      username: 'syspk2020',
       password: '2020pk',
-      database: 'syspk_base',
+      database: 'syspk2020',
       synchronize: true,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
     }),
@@ -36,7 +38,9 @@ import { AvatarModule } from './modules/avatar/avatar.module';
     RoleModule,
     LoggerModule,
     FileuploadModule,
-    AvatarModule
+    AvatarModule,
+    CourseModule,
+    ClassModule
   ],
   controllers: [AppController],
   providers: [AppService],

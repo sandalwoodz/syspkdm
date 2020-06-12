@@ -27,7 +27,7 @@ export class teachers {
   @OneToMany(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     type => rcourse,
-    rcourse => rcourse.teachers,
+    rcourse => rcourse.teachersId,
   )
   rcourses:[];
 

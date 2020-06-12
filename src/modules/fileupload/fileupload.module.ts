@@ -19,9 +19,7 @@ import { File } from './fileupload.entity';
           'application/vnd.ms-excel',
           'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
         ];
-
         const allowed = mimetypes.some(type => type === file.mimetype);
-
         if (allowed) {
           callback(null, true);
         } else {

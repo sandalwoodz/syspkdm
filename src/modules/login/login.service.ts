@@ -23,6 +23,9 @@ export class LoginService {
       throw new UnauthorizedException('密码不匹配');
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const avatar = entity.avatar;
+    const roles = entity.roles;
     const { id } = entity;
     const payload = { id, name };
     const token = this.signToken(payload);
@@ -30,6 +33,8 @@ export class LoginService {
     return {
       ...payload,
       token,
+      roles,
+      avatar
     };
   }
 

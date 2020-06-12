@@ -1,5 +1,5 @@
 export class timearray {
-  timearray = [10, 11];
+  timearray = [9,10, 11];
 }
 
 export enum stimeRole {

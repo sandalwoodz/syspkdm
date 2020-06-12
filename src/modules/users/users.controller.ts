@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { UserService } from './users.service';
 import { UserDto, UpdatePasswordDto } from './users.dto';
-import { ApiTags, ApiOperation } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiHeader } from '@nestjs/swagger';
 import { UserRole } from 'src/core/enums/user-role.enum';
 import { AuthGuard } from '@nestjs/passport';
 import { AccessGuard } from 'src/core/guards/access.guard';
@@ -26,7 +26,12 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Get('index')
-  @ApiOperation({ summary: '查看用户' })
+  @ApiOperation({ summary: '查看所有用户' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.ADMIN }) //管理员权限
   async index() {
@@ -34,8 +39,8 @@ export class UserController {
   }
 
   @Post()
-  @ApiOperation({ summary: '添加用户' })
-  async store(@Body() data) {
+  @ApiOperation({ summary: '添加用户 传输的数据为userdto' })
+  async store(@Body() data:UserDto) {
     return await this.userService.store(data);
   }
 
@@ -48,6 +53,12 @@ export class UserController {
 
   @Put(':id/password')
   @ApiOperation({ summary: '用户修改密码' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
+  @UseGuards(AuthGuard('jwt'))
   @UseInterceptors(ClassSerializerInterceptor)
   async updatepassword(
     @Param('id') id: string,
@@ -58,6 +69,11 @@ export class UserController {
 
   @Delete(':id')
   @ApiOperation({ summary: '删除用户' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.ADMIN }) //管理员权限
   async destroy(@Param('id') id: string) {
@@ -66,6 +82,11 @@ export class UserController {
 
   @Put(':name')
   @ApiOperation({ summary: '给用户添加角色' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.ADMIN }) //管理员权限
   async update(@Param('name') name: string , @Body() data: UserDto) {

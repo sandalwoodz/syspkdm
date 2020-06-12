@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { teachers } from './teachers.entity';
 import { Repository } from 'typeorm';
@@ -13,6 +13,12 @@ export class TeachersService {
 
   //存储数据
   async store(data: teachersDto) {
+    const { jobnumber } = data;
+    const teacher = await this.teachersRepository.findOne({ jobnumber });
+
+    if (teacher) {
+      throw new BadRequestException('此教师已存在');
+    }
     const entity = await this.teachersRepository.create(data);
     await this.teachersRepository.save(entity);
     return entity;
@@ -60,6 +66,6 @@ export class TeachersService {
   }
 
   async getrcourseId(id) {
-    return await this.teachersRepository.findOne(id, {relations: ['rcourses']});
+    return await this.teachersRepository.findOne(id);
   }
 }

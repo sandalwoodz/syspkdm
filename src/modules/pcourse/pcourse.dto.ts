@@ -1,49 +1,34 @@
+/* eslint-disable @typescript-eslint/class-name-casing */
 import { ApiProperty } from '@nestjs/swagger';
-import { timeRole, stimeRole } from 'src/core/enums/time.enum';
 
 export class pcourseDto {
   @ApiProperty()
-  readonly coursename: string;
-  @ApiProperty()
-  readonly teachername: string;
-  @ApiProperty()
-  readonly classname: string;
-  @ApiProperty()
-  readonly classnumber: number;
-  @ApiProperty()
-  readonly times: number;
-  @ApiProperty()
   readonly classroomname: string;
+  @ApiProperty()
+  readonly weeks: number;
   @ApiProperty()
   readonly week: number;
   @ApiProperty()
-  readonly time: timeRole;
-  @ApiProperty()
+  readonly time: number;
+  @ApiProperty({description:'可以为空'})
   readonly optional: string;
-  @ApiProperty()
+  @ApiProperty({description:'可以为空'})
   readonly select: string;
 
 }
 
 export class spcourseDto {
-  @ApiProperty()
-  readonly coursename: string;
-  @ApiProperty()
-  readonly teachername: string;
-  @ApiProperty()
-  readonly classname: string;
-  @ApiProperty()
-  readonly classnumber: number;
-  @ApiProperty()
-  readonly times: number;
+
   @ApiProperty()
   readonly classroomname: string;
   @ApiProperty()
+  readonly weeks: number;
+  @ApiProperty()
   readonly week: number;
   @ApiProperty()
-  readonly time: stimeRole;
-  @ApiProperty()
+  readonly time: number;
+  @ApiProperty({description:'可以为空'})
   readonly optional: string;
-  @ApiProperty()
+  @ApiProperty({description:'可以为空'})
   readonly select: string;
 }

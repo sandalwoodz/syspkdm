@@ -13,7 +13,7 @@ import {
 } from '@nestjs/common';
 import { PcourseService } from './pcourse.service';
 import { pcourseDto, spcourseDto } from './pcourse.dto';
-import { ApiTags, ApiOperation, ApiProperty } from '@nestjs/swagger';
+import { ApiTags, ApiOperation, ApiProperty, ApiHeader } from '@nestjs/swagger';
 import { AuthGuard } from '@nestjs/passport';
 import { AccessGuard } from 'src/core/guards/access.guard';
 import { Permissions } from 'src/core/decorators/permissions.decorator';
@@ -27,14 +27,24 @@ export class PcourseController {
 
   @Post()
   @ApiOperation({ summary: '增加排课信息' })
-  @UseGuards(AuthGuard('jwt'), AccessGuard, TimeGuard)
-  @Permissions({ role: UserRole.TEACHER }) //教师权限
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
+  @UseGuards(AuthGuard('jwt'))
   async store(@Body() data: pcourseDto) {
+
     return await this.pcourseService.store(data);
   }
 
   @Post('s')
   @ApiOperation({ summary: '增加排课信息(特殊时段)' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @UseGuards(AuthGuard('jwt'), AccessGuard)
   @Permissions({ role: UserRole.SPECIAL }) //教师特殊权限(能在周末及中午时间段上课)
   async sstore(@Body() data: spcourseDto) {
@@ -42,24 +52,38 @@ export class PcourseController {
   }
 
   @ApiOperation({ summary: '查询排课信息' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
+  
   @Get()
   async index() {
     return await this.pcourseService.index();
   }
 
+
   @ApiOperation({ summary: '修改排课信息' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @Put(':id')
   async updata(@Param('id') id: string, @Body() data: pcourseDto) {
     return await this.pcourseService.updata(id, data);
   }
+
 
   @Delete(':id')
   async destroy(@Param('id') id: string) {
     return await this.pcourseService.destroy(id);
   }
 
+
   @ApiOperation({ summary: '按班级/周期' })
-  @Get(':classname/:week')
+  @Get('c/:classname/:week')
   async find(
     @Param('classname') classname: string,
     @Param('week', ParseIntPipe) week: number,
@@ -68,6 +92,11 @@ export class PcourseController {
   }
 
   @ApiOperation({ summary: '按教室/周期查询' })
+  @ApiHeader({
+    name:'authoriation',
+    required: true,
+    description: '本次请求请带上token',
+  })
   @Get('p/:classroomname/:week')
   async findtwo(
     @Param('classroomname') classroomname: string,
@@ -83,4 +112,15 @@ export class PcourseController {
   ) {
     return await this.pcourseService.findthree(classroomname);
   }
+
+  @ApiOperation({ summary: '周期查看' })
+  @Get('week/:week')
+  async findweek(
+    @Param('week') week: number,
+  ) {
+    return await this.pcourseService.findweek(week);
+  }
+
 }
+
+

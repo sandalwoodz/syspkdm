@@ -14,7 +14,7 @@ export class Avatar{
     @Column()
     mimetype:string
 
-    @ManyToOne(type => users,users=> users.avatar,{nullable : false}
+    @ManyToOne(type => users,users=> users.avatar//,{nullable : false}
         )
     user:users;
 
